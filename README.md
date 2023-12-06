@@ -5,7 +5,7 @@ What is this?
 It's an API. It queries DNS records. You send it a domain and a record type, it gives you an answer. It's not rocket science.
 
 How to Use
-Start the Server: Run go run . or go build followed by ./your-binary-name If you can't figure this out, maybe reconsider your career choices.
+Start the Server: Run go run . or go build followed by ./your-binary-name 
 
 Make Requests: Use curl, Postman, or whatever floats your boat. 
 
