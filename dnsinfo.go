@@ -6,7 +6,7 @@ import (
     "github.com/miekg/dns"
 )
 
-// DNSRecords holds different types of DNS records
+// DNSRecord specifications library does support more record types
 type DNSRecords struct {
     A     []string `json:"a,omitempty"`
     AAAA  []string `json:"aaaa,omitempty"`
@@ -14,15 +14,15 @@ type DNSRecords struct {
     MX    []string `json:"mx,omitempty"`
     NS    []string `json:"ns,omitempty"`
     TXT   []string `json:"txt,omitempty"`
-    // Add other record types as needed
+    // Add other record types as needed just make sure they're supported by the library
 }
 
-// handleDNSQuery handles the DNS query and responds with JSON
+// handleDNSQuery with JSON formatting
 func handleDNSQuery(w http.ResponseWriter, r *http.Request) {
     domain := r.URL.Query().Get("domain")
     nameserver := r.URL.Query().Get("nameserver") // Example: "1.1.1.1"
 
-    // Validate input
+    // Input validation
     if domain == "" || nameserver == "" {
         http.Error(w, "Missing domain or nameserver", http.StatusBadRequest)
         return
@@ -38,7 +38,7 @@ func handleDNSQuery(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(records)
 }
 
-// queryAllRecordTypes queries all DNS record types for a given domain and nameserver
+// queryAllRecordTypes queries all DNS record types listed in the struct above for a given domain and nameserver
 func queryAllRecordTypes(domain, nameserver string) (DNSRecords, error) {
     var records DNSRecords
     recordTypes := []uint16{dns.TypeA, dns.TypeAAAA, dns.TypeCNAME, dns.TypeMX, dns.TypeNS, dns.TypeTXT}
